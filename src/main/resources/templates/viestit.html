@@ -8,7 +8,7 @@
 
     <body>
         <h1>Viestit</h1>
-
+        
         
         <ol>
             <li th:each="viesti: ${viestit}">
@@ -18,7 +18,7 @@
         
         
         
-        <form action="/ketjut/1" method="POST">
+        <form method="POST" th:action= "@{~/viestit/} + ${alueenId +'/' + ketjunId}">
             <span> Lisää viesti: </span>
             <br/>
             <textarea cols="40" rows="5" name="viesti">
@@ -29,6 +29,7 @@
             <br/>
             <input type="submit" value="Lisää!"/>
         </form>
+        
         
         <!-- Tässä pitäisi mieluiten olla kaksi linkkiä: toinen aluevalintaan ja toinen ketjun valintaan samalta alueelta-->
         <br/>

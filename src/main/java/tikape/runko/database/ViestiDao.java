@@ -106,11 +106,12 @@ public class ViestiDao implements Dao<Viesti, Integer> {
         PreparedStatement stmnt = connection.prepareStatement(
                                     "INSERT INTO Viesti "
                                     + "(kayttaja, teksti, paivamaara, ketju) "
-                                    + "VALUES (?, ?, DATETIME('now', 'localtime'), ?)");
+                                    + "VALUES (?, ?, ?, ?)");
         
         stmnt.setString(1, kayttaja);
         stmnt.setString(2, teksti);
-        stmnt.setInt(3, ketju);
+        stmnt.setDate(3, new java.sql.Date(System.currentTimeMillis()));
+        stmnt.setInt(4, ketju);
 
         stmnt.execute();
 

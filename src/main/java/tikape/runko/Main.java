@@ -46,12 +46,12 @@ public class Main {
             if (!req.queryParams("alueNimi").isEmpty()) {
                 alueDao.lisaaAlue(req.queryParams("alueNimi"));
             }
-            res.redirect("/");
+            res.redirect("/alueet");
             return "";
         });
         
         //Listaa kaikki tietyn alueen alaisuudessa olevat ketjut ketjuun liittyvnä alue-fk:n mukaan
-        get("/alueet/:id", (req, res) -> {
+        get("/alueet/:id/ketjut", (req, res) -> {
             HashMap map = new HashMap<>();
             map.put("ketjut", ketjuDao.findAllForAlueId(Integer.parseInt(req.params("id"))));
 
@@ -70,17 +70,19 @@ public class Main {
         //LIsää uusi ketju ja viesti ketjuun
         
         //Listaa kaikki ketjuun liittyvät viestit viestiin liittyvän ketju-fk:n mukaan
-        get("/alueet/:id/ketjut/:id", (req, res) -> {
+        get("/alueet/:id/ketjut/:id2", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("viestit", viestiDao.findAllForKetjuId(Integer.parseInt(req.params("id"))));
-
+            map.put("viestit", viestiDao.findAllForKetjuId(Integer.parseInt(req.params(":id2"))));
+            map.put("alueenId", req.params(":id"));
+            map.put("ketjunId", req.params(":id2"));
             return new ModelAndView(map, "viestit");
         }, new ThymeleafTemplateEngine()); 
 
-        //Vastaanottaa kirjoittajan viesti, ei toimi vielä oikein
-        post("/ketjut/1", (req, res) -> {
-            viestiDao.lisaaViesti(req.queryParams("kayttaja"), req.queryParams("viesti"), Integer.parseInt(req.params("1")));
-            res.redirect("/alue");
+        //Vastaanottaa kirjoittajan viesti, nyt toimii, huom. mappi get("/alueet/:id/ketjut/:id2"
+        // sisältää nyt tarvittavat Id:t
+        post("/viestit/:id/:id2", (req, res) -> {
+            viestiDao.lisaaViesti(req.queryParams("kayttaja"), req.queryParams("viesti"), Integer.parseInt(req.params(":id2")));
+            res.redirect("/alueet/" + req.params(":id") + "/ketjut/" + req.params(":id2"));
             return "";
         });
         

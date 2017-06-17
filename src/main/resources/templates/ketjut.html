@@ -29,7 +29,7 @@
                 <td>
                     <ol> 
                         <li th:each="ketju: ${ketjut}">
-                            <span th:text="${ketju.otsikko}">ketjun nimi</span> <a th:href="${'/alueet/:id/ketjut/' + ketju.id}">linkki</a>
+                            <span th:text="${ketju.otsikko}">ketjun nimi</span> <a th:href="${'/alueet/' + ketju.alueid + '/ketjut/' + ketju.id}">linkki</a>
                         </li> 
                     </ol>
                 </td>
