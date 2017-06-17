@@ -36,7 +36,7 @@ public class Main {
         //Listaa kaikki alueet, toteutus html-filussa
         get("/alueet", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("alueet", alueDao.findAll());
+            map.put("alueet", alueDao.findAllmuokattu());
 
             return new ModelAndView(map, "alueet");
         }, new ThymeleafTemplateEngine());
@@ -53,7 +53,7 @@ public class Main {
         //Listaa kaikki tietyn alueen alaisuudessa olevat ketjut ketjuun liittyvnä alue-fk:n mukaan
         get("/alueet/:id/ketjut", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("ketjut", ketjuDao.findAllForAlueId(Integer.parseInt(req.params("id"))));
+            map.put("ketjut", ketjuDao.findAllForAlueIdKymmenenUusinta(Integer.parseInt(req.params("id"))));
 
             return new ModelAndView(map, "ketjut");
         }, new ThymeleafTemplateEngine());

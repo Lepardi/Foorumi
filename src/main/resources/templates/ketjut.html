@@ -29,15 +29,25 @@
                 <td>
                     <ol> 
                         <li th:each="ketju: ${ketjut}">
-                            <span th:text="${ketju.otsikko}">ketjun nimi</span> <a th:href="${'/alueet/' + ketju.alueid + '/ketjut/' + ketju.id}">linkki</a>
+
+                            <a th:href="${'/alueet/' + ketju.alueid + '/ketjut/' + ketju.id}"><span th:text="${ketju.otsikko}">ketjun nimi</span></a>
+
                         </li> 
                     </ol>
                 </td>
                 <td>
-                    lkm
+                    <ul> 
+                        <li th:each="ketju: ${ketjut}" style="list-style-type:none">
+                            <span th:text="${ketju.lkm}">ketjun viestin lukumäärä</span>
+                        </li> 
+                    </ul>
                 </td>
                 <td>
-                    aika
+                    <ul> 
+                        <li th:each="ketju: ${ketjut}" style="list-style-type:none">
+                            <span>aika</span>
+                        </li> 
+                    </ul>
                 </td>
             </tr>
         </table>

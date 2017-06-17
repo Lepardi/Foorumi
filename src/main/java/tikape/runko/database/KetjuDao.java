@@ -71,7 +71,7 @@ public class KetjuDao implements Dao<Ketju, Integer> {
 
         return alueet;
     }
-    
+       
     public void lisaaKetju(String otsikko, int alue) throws SQLException {
         Connection connection = this.database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Ketju (otsikko, alue) "
@@ -98,6 +98,42 @@ public class KetjuDao implements Dao<Ketju, Integer> {
                 Integer alueid = rs.getInt("alue");
             
                 ketjut.add(new Ketju(id, otsikko, alueid));
+            }
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return ketjut;
+    }
+    
+    public List<Ketju> findAllForAlueIdKymmenenUusinta(int alueenId) throws SQLException {
+        Connection connection = database.getConnection();
+        //Tämän versio näyttää myös ketjut, joissa ei ole viestejä.
+        PreparedStatement stmt = connection.prepareStatement("SELECT Ketju.*, COUNT(Viesti.id) lkm, " + 
+                "MAX(Viesti.paivamaara) uusin FROM Ketju " + 
+                "LEFT JOIN Viesti on Ketju.id = Viesti.ketju GROUP BY Ketju.id " + 
+                "ORDER BY MAX(Viesti.paivamaara) DESC LIMIT 0,10");
+        
+        //Tämä versio hausta ei näytä ketjuja, joissa ei ole yhtään viestejä
+        //PreparedStatement stmt = connection.prepareStatement("SELECT Ketju.*, COUNT(Viesti.id) lkm, " + 
+        //        "MAX(Viesti.paivamaara) uusin FROM Ketju, Viesti " + 
+        //        "WHERE Ketju.id = Viesti.ketju GROUP BY Ketju.id " + 
+        //        "ORDER BY MAX(Viesti.paivamaara) DESC LIMIT 0,10");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Ketju> ketjut = new ArrayList<>();
+        while (rs.next()) {
+            if (rs.getInt("alue") == alueenId) {
+                Integer id = rs.getInt("id");
+                String otsikko = rs.getString("otsikko");
+                Integer alueid = rs.getInt("alue");
+                
+                int lkm = rs.getInt("lkm");
+                
+            
+                ketjut.add(new Ketju(id, otsikko, alueid, lkm));
             }
         }
 

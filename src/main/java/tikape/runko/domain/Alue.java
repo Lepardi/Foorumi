@@ -12,10 +12,17 @@ package tikape.runko.domain;
 public class Alue {
     private Integer id;
     private String aihe;
+    private Integer lkm;
     
     public Alue(Integer id, String aihe) {
         this.id = id;
         this.aihe = aihe;
+    }
+    
+    public Alue(Integer id, String aihe, Integer lkm) {
+        this.id = id;
+        this.aihe = aihe;
+        this.lkm = lkm;
     }
 
     public Integer getId() {
@@ -24,6 +31,10 @@ public class Alue {
 
     public String getAihe() {
         return aihe;
+    }
+    
+    public int getLkm() {
+        return lkm;
     }
 
     public void setId(Integer id) {

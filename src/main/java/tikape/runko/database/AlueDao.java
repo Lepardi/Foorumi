@@ -70,6 +70,32 @@ public class AlueDao implements Dao<Alue, Integer> {
         return alueet;
     }
     
+    public List<Alue> findAllmuokattu() throws SQLException {
+        Connection connection = database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT Alue.*, COUNT(Viesti.id) lkm, " + 
+                "MAX(Viesti.paivamaara) uusin FROM Alue " + 
+                "LEFT JOIN Ketju on Ketju.alue = Alue.id " + 
+                "LEFT JOIN Viesti on Ketju.id = Viesti.ketju " + 
+                "GROUP BY Alue.id");
+
+        ResultSet rs = stmt.executeQuery();
+        List<Alue> alueet = new ArrayList<>();
+        while (rs.next()) {
+            Integer id = rs.getInt("id");
+            String aihe = rs.getString("aihe");
+            
+            Integer lkm = rs.getInt("lkm");
+
+            alueet.add(new Alue(id, aihe, lkm));
+        }
+
+        rs.close();
+        stmt.close();
+        connection.close();
+
+        return alueet;
+    }
+    
     public void lisaaAlue(String aihe) throws SQLException {
         Connection connection = this.database.getConnection();
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Alue(aihe) "
