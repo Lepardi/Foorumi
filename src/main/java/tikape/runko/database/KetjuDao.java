@@ -83,6 +83,19 @@ public class KetjuDao implements Dao<Ketju, Integer> {
         stmt.close();
         connection.close();
     }
+    
+    public int findLatest() throws SQLException {
+        Connection connection = this.database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ketju WHERE id = (SELECT MAX(id) FROM Ketju)");
+        ResultSet rs = stmt.executeQuery();
+        
+        Integer viimeisinId = rs.getInt("id");
+        
+        stmt.close();
+        connection.close();
+        
+        return viimeisinId;
+    }
 
     
     public List<Ketju> findAllForAlueId(int alueenId) throws SQLException {
@@ -146,6 +159,25 @@ public class KetjuDao implements Dao<Ketju, Integer> {
         return ketjut;
     }
     
+    public boolean tarkistaKetju(int id) throws SQLException {
+        boolean poistettiinko = false;
+        Connection connection = this.database.getConnection();
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM viesti WHERE ketju = ?");
+        stmt.setObject(1, id);
+        ResultSet rs = stmt.executeQuery();
+        
+        if(!rs.next()) {
+            PreparedStatement stmt2 = connection.prepareStatement("DELETE FROM Ketju WHERE id = ?");
+            stmt2.setObject(1, id);
+            stmt2.execute();
+            stmt2.close();
+            poistettiinko = true;
+        }
+        
+        stmt.close();
+        connection.close();
+        return poistettiinko;
+    }
     
     @Override
     public void delete(Integer key) throws SQLException {

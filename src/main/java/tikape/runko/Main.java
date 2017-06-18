@@ -60,8 +60,8 @@ public class Main {
         post("/alueet/:id/ketjut", (req, res) -> {
             
             ketjuDao.lisaaKetju(req.queryParams("ketjunNimi"), Integer.parseInt(req.params(":id")));
-            
-            res.redirect("/alueet/" + req.params(":id") + "/ketjut");
+            int ketju = ketjuDao.findLatest();
+            res.redirect("/alueet/" + req.params(":id") + "/ketjut/" + ketju);
             return "";
         });
         //LIsää uusi ketju ja viesti ketjuun
@@ -78,8 +78,17 @@ public class Main {
         //Vastaanottaa kirjoittajan viesti, nyt toimii, huom. mappi get("/alueet/:id/ketjut/:id2"
         // sisältää nyt tarvittavat Id:t
         post("/viestit/:id/:id2", (req, res) -> {
-            viestiDao.lisaaViesti(req.queryParams("kayttaja"), req.queryParams("viesti"), Integer.parseInt(req.params(":id2")));
-            res.redirect("/alueet/" + req.params(":id") + "/ketjut/" + req.params(":id2"));
+            String kayttaja = req.queryParams("kayttaja");
+            String viesti = req.queryParams("viesti");
+            if (!kayttaja.isEmpty() && !viesti.isEmpty()) {
+                viestiDao.lisaaViesti(kayttaja, viesti, Integer.parseInt(req.params(":id2")));
+            }
+            
+            if (ketjuDao.tarkistaKetju(ketjuDao.findLatest())) {
+                res.redirect("/alueet/" + req.params(":id") + "/ketjut");
+            } else {
+                res.redirect("/alueet/" + req.params(":id") + "/ketjut/" + req.params(":id2"));
+            }
             return "";
         });
         
