@@ -8,16 +8,14 @@
 
     <body>
         <h1>Viestit</h1>
-        
-        
+
         <ol>
             <li th:each="viesti: ${viestit}">
                 <span th:text="${viesti.teksti}">viestin teksti</span> <span>t.</span> <span th:text= "${viesti.kayttaja}">viestin käyttäjä</span>
             </li>
         </ol>
         
-        
-        
+
         <form method="POST" th:action= "@{~/viestit/} + ${alueenId +'/' + ketjunId}">
             <span> Lisää viesti: </span>
             <br/>
