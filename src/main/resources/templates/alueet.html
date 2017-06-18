@@ -9,15 +9,6 @@
     <body>
         <h1>Keskustelualueet</h1>
         
-        <!--alkuperäinen koodi
-        <span>Alue............Viesteja yhteensa.........Viimeisin viesti</span>
-        <ol>
-            <li th:each="alue: ${alueet}">
-                <span th:text="${alue.aihe}">alueen nimi</span> <a th:href="${'/alueet/' + alue.id}">linkki</a>
-            </li>
-        </ol>
-        -->
-        
          <!--Nykyinen versio. Lukumäärien ja aikojen tarkka muotoilu tehdään sitten kun ne voidaan hakea DAOn avulla.
          Nyt tämä näyttää hieman oudolta, koska nimilista on teknisesti yhdellä rivillä taulukossa.-->
         <table cellspacing="30">
@@ -38,10 +29,10 @@
                 <td>
                     <span th:text="${alue.lkm}">alueen nimi</span>
                 </td>
-                
+                <!--
                 <td>
                     aika
-                </td>
+                </td> -->
             </tr>
         </table>
         
