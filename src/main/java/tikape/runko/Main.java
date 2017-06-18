@@ -53,18 +53,18 @@ public class Main {
         //Listaa kaikki tietyn alueen alaisuudessa olevat ketjut ketjuun liittyvnä alue-fk:n mukaan
         get("/alueet/:id/ketjut", (req, res) -> {
             HashMap map = new HashMap<>();
-            map.put("ketjut", ketjuDao.findAllForAlueIdKymmenenUusinta(Integer.parseInt(req.params("id"))));
-
+            map.put("ketjut", ketjuDao.findAllForAlueIdKymmenenUusinta(Integer.parseInt(req.params(":id"))));
+            map.put("alueenId", req.params(":id"));
             return new ModelAndView(map, "ketjut");
         }, new ThymeleafTemplateEngine());
         
         
         //Lisää uusi ketju
-        post("/alueet/:id", (req, res) -> {
+        post("/alueet/:id/ketjut", (req, res) -> {
             
-            ketjuDao.lisaaKetju(req.queryParams("ketjunNimi"), Integer.parseInt(req.params("id")));
+            ketjuDao.lisaaKetju(req.queryParams("ketjunNimi"), Integer.parseInt(req.params(":id")));
             
-            res.redirect("/alue");
+            res.redirect("/alueet/" + req.params(":id") + "/ketjut");
             return "";
         });
         //LIsää uusi ketju ja viesti ketjuun

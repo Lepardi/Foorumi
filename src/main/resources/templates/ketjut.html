@@ -53,7 +53,7 @@
         </table>
         
         <!--Lisää uuden keskustelun-->
-        <form action="/alueet/:id" method="POST">
+        <form method="POST" th:action="@{~/alueet/} + ${alueenId +'/ketjut'}">
             <span> Lisää uusi keskustelu: </span>
             <br/>
             <label> Keskustelun nimi: </label> <input type="text" name="ketjunNimi" size="32" maxlength="30"/>
