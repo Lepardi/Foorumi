@@ -47,6 +47,7 @@ public class Main {
             map.put("alueet", alueDao.findAllmuokattu());
 
             return new ModelAndView(map, "alueet");
+            
         }, new ThymeleafTemplateEngine());
         
         //Lisää uuden alueen
