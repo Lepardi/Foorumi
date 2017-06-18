@@ -27,6 +27,8 @@ public class Main {
             map.put("viesti", "tervehdys");
 
             return new ModelAndView(map, "index");
+            
+            res.redirect("/alueet");
         }, new ThymeleafTemplateEngine());
         
         

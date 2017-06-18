@@ -1,5 +1,6 @@
 package tikape.runko.database;
 
+import java.net.URI;
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -13,11 +14,30 @@ public class Database {
     }
 
     public Connection getConnection() throws SQLException {
+        if (this.databaseAddress.contains("postgres")) {
+            try {
+                URI dbUri = new URI(databaseAddress);
+
+                String username = dbUri.getUserInfo().split(":")[0];
+                String password = dbUri.getUserInfo().split(":")[1];
+                String dbUrl = "jdbc:postgresql://" + dbUri.getHost() + ':' + dbUri.getPort() + dbUri.getPath();
+
+                return DriverManager.getConnection(dbUrl, username, password);
+            } catch (Throwable t) {
+                System.out.println("Error: " + t.getMessage());
+                t.printStackTrace();
+            }
+        }
         return DriverManager.getConnection(databaseAddress);
     }
 
     public void init() {
         List<String> lauseet = sqliteLauseet();
+        if (this.databaseAddress.contains("postgres")) {
+            lauseet = postgreLauseet();
+        } else {
+            lauseet = sqliteLauseet();
+        }
 
         // "try with resources" sulkee resurssin automaattisesti lopuksi
         try (Connection conn = getConnection()) {
@@ -35,24 +55,23 @@ public class Database {
         }
     }
 
+    private List<String> postgreLauseet() {
+        ArrayList<String> lista = new ArrayList<>();
+
+        return lista;
+    }
+    
     private List<String> sqliteLauseet() {
         ArrayList<String> lista = new ArrayList<>();
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
 
-        lista.add("DELETE FROM Viesti WHERE kayttaja = 'pööpöttäjä'");
-        lista.add("DELETE FROM Viesti WHERE id = '2'");
-        lista.add("DELETE FROM Viesti WHERE id = '3'");
-        
-        
-        lista.add("DELETE FROM Ketju WHERE otsikko = 'testiketju'");
-        lista.add("DELETE FROM Ketju WHERE otsikko = 'uusi ketju'");
-        lista.add("DELETE FROM Ketju WHERE id = '4'");
-        lista.add("DELETE FROM Ketju WHERE id = '3'");
-        
-        lista.add("DELETE FROM Alue WHERE aihe = 'testi'");
-        lista.add("DELETE FROM Alue WHERE aihe = 'testi2'");
-        
+        //Näillä voi putsata tietokantaa
+        //lista.add("DELETE FROM Viesti WHERE id = '1'");
+
+        //lista.add("DELETE FROM Ketju WHERE id = '1'");
+
+        //lista.add("DELETE FROM Alue WHERE id = '1'");
         
         
         return lista;
