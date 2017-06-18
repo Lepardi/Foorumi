@@ -66,12 +66,15 @@ public class Database {
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
 
+<<<<<<< HEAD
         //Näillä voi putsata tietokantaa
         //lista.add("DELETE FROM Viesti WHERE id = '1'");
 
         //lista.add("DELETE FROM Ketju WHERE id = '1'");
 
         //lista.add("DELETE FROM Alue WHERE id = '1'");
+=======
+>>>>>>> c3100f422caaabe602150a630025f99c8eee7b09
         
         
         return lista;
