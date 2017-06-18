@@ -57,6 +57,16 @@ public class Database {
 
     private List<String> postgreLauseet() {
         ArrayList<String> lista = new ArrayList<>();
+        
+        lista.add("CREATE TABLE Alue (id SERIAL PRIMARY KEY, aihe varchar(255));");
+        lista.add("INSERT INTO Alue (aihe) VALUES ('Koirat');");
+        //lista.add("INSERT INTO Alue (aihe) VALUES ('Koirat');");
+        
+        //lista.add("CREATE TABLE Ketju (id integer PRIMARY KEY, otsikko varchar(50) NOT NULL, alue integer NOT NULL, FOREIGN KEY (alue) REFERENCES Alue(id));");
+        //lista.add("INSERT INTO Ketju (aihe) VALUES ('Koirat');");
+        
+        //lista.add("CREATE TABLE Viesti (id integer PRIMARY KEY, kayttaja varchar(50) NOT NULL, paivamaara date NOT NULL, teksti varchar (2000) NOT NULL, ketju integer NOT NULL, FOREIGN KEY (ketju) REFERENCES Ketju(id));");
+        //lista.add("INSERT INTO Viesti (aihe) VALUES ('Koirat');");
 
         return lista;
     }
