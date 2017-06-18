@@ -14,8 +14,17 @@ public class Main {
 
     public static void main(String[] args) throws Exception {
         
+        if (System.getenv("PORT") != null) {
+            port(Integer.valueOf(System.getenv("PORT")));
+        }
         
-        Database database2 = new Database("jdbc:sqlite:foorumi.db");
+        String jdbcOsoite = "jdbc:sqlite:foorumi.db";
+        if (System.getenv("DATABASE_URL") != null) {
+            jdbcOsoite = System.getenv("DATABASE_URL");
+        }
+        
+        
+        Database database2 = new Database(jdbcOsoite);
         database2.init();
 
         AlueDao alueDao = new AlueDao(database2);
@@ -28,7 +37,7 @@ public class Main {
 
             return new ModelAndView(map, "index");
             
-            res.redirect("/alueet");
+            
         }, new ThymeleafTemplateEngine());
         
         
