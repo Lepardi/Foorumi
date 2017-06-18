@@ -108,6 +108,8 @@ public class KetjuDao implements Dao<Ketju, Integer> {
         return ketjut;
     }
     
+    //Tämä valitsee nyt 10 uusinta sen mukaan, missä on keskusteltu viimeksi, ei luomisjärjestyksen mukaan.
+    //Jos haluat muuttaa, niin sen voi tehdä muuttamalla ORDER BY -komentoa.
     public List<Ketju> findAllForAlueIdKymmenenUusinta(int alueenId) throws SQLException {
         Connection connection = database.getConnection();
         //Tämän versio näyttää myös ketjut, joissa ei ole viestejä.

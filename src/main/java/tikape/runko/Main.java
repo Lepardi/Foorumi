@@ -59,7 +59,7 @@ public class Main {
         }, new ThymeleafTemplateEngine());
         
         
-        //Lisää uusi ketju ja viesti ketjuun
+        //Lisää uusi ketju
         post("/alueet/:id", (req, res) -> {
             
             ketjuDao.lisaaKetju(req.queryParams("ketjunNimi"), Integer.parseInt(req.params("id")));
@@ -93,19 +93,19 @@ public class Main {
         
         
         
-        get("/opiskelijat", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("opiskelijat", opiskelijaDao.findAll());
+        //get("/opiskelijat", (req, res) -> {
+        //    HashMap map = new HashMap<>();
+        //    map.put("opiskelijat", opiskelijaDao.findAll());
 
-            return new ModelAndView(map, "opiskelijat");
-        }, new ThymeleafTemplateEngine());
+        //    return new ModelAndView(map, "opiskelijat");
+        //}, new ThymeleafTemplateEngine());
         
 
-        get("/opiskelijat/:id", (req, res) -> {
-            HashMap map = new HashMap<>();
-            map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
+        //get("/opiskelijat/:id", (req, res) -> {
+        //    HashMap map = new HashMap<>();
+        //    map.put("opiskelija", opiskelijaDao.findOne(Integer.parseInt(req.params("id"))));
 
-            return new ModelAndView(map, "opiskelija");
-        }, new ThymeleafTemplateEngine());
+        //    return new ModelAndView(map, "opiskelija");
+        //}, new ThymeleafTemplateEngine());
     }
 }
