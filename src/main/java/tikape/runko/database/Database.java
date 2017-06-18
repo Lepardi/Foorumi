@@ -58,7 +58,7 @@ public class Database {
     private List<String> postgreLauseet() {
         ArrayList<String> lista = new ArrayList<>();
         
-        lista.add("CREATE TABLE Alue (id SERIAL PRIMARY KEY, aihe varchar(255));");
+        //lista.add("CREATE TABLE Alue (id SERIAL PRIMARY KEY, aihe varchar(255));");
         lista.add("INSERT INTO Alue (aihe) VALUES ('Koirat');");
         //lista.add("INSERT INTO Alue (aihe) VALUES ('Koirat');");
         
