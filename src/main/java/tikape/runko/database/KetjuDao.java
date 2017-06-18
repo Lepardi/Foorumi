@@ -89,6 +89,7 @@ public class KetjuDao implements Dao<Ketju, Integer> {
         PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Ketju WHERE id = (SELECT MAX(id) FROM Ketju)");
         ResultSet rs = stmt.executeQuery();
         
+        rs.next();
         Integer viimeisinId = rs.getInt("id");
         
         stmt.close();
