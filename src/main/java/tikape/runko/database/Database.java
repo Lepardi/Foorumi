@@ -40,19 +40,6 @@ public class Database {
 
         // tietokantataulujen luomiseen tarvittavat komennot suoritusjärjestyksessä
 
-        lista.add("DELETE FROM Viesti WHERE kayttaja = 'pööpöttäjä'");
-        lista.add("DELETE FROM Viesti WHERE id = '2'");
-        lista.add("DELETE FROM Viesti WHERE id = '3'");
-        
-        
-        lista.add("DELETE FROM Ketju WHERE otsikko = 'testiketju'");
-        lista.add("DELETE FROM Ketju WHERE otsikko = 'uusi ketju'");
-        lista.add("DELETE FROM Ketju WHERE id = '4'");
-        lista.add("DELETE FROM Ketju WHERE id = '3'");
-        
-        lista.add("DELETE FROM Alue WHERE aihe = 'testi'");
-        lista.add("DELETE FROM Alue WHERE aihe = 'testi2'");
-        
         
         
         return lista;
