@@ -8,14 +8,6 @@
 
     <body>
         <h1>Ketjut</h1>
-
-        <!--Alkuperäinen koodi
-        <ol>
-            <li th:each="ketju: ${ketjut}">
-                <span th:text="${ketju.otsikko}">ketjun otsikko</span> <a th:href="${'/ketjut/' + ketju.id}">linkki</a>
-            </li>
-        </ol>
-        -->
         
         <!--Nykyinen versio. Lukumäärien ja aikojen tarkka muotoilu tehdään sitten kun ne voidaan hakea DAOn avulla. 
         Tarkemmat kommentit alueet.html tiedostossa-->
@@ -23,7 +15,7 @@
             <tr> 
                 <th>Keskustelut</th>
                 <th>Viestejä yhteensa</th>
-                <th>Viimeisin viesti</th>
+               
             </tr>
             <tr>
                 <td>
@@ -42,13 +34,15 @@
                         </li> 
                     </ul>
                 </td>
+                
+                <!--
                 <td>
                     <ul> 
                         <li th:each="ketju: ${ketjut}" style="list-style-type:none">
                             <span>aika</span>
                         </li> 
                     </ul>
-                </td>
+                </td> -->
             </tr>
         </table>
         
