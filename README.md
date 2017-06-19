@@ -1,4 +1,4 @@
 # tikape-runko
 
-Tietokantojen perusteet -kurssilla tehtävän web-sovelluksen pohja.
+Ryhmän tiedonkantajat tietokantojen perusteet kurssille tehtävä keskustelalue.
 
