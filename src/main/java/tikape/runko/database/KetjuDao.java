@@ -130,7 +130,7 @@ public class KetjuDao implements Dao<Ketju, Integer> {
         PreparedStatement stmt = connection.prepareStatement("SELECT Ketju.*, COUNT(Viesti.id) lkm, " + 
                 "MAX(Viesti.paivamaara) uusin FROM Ketju " + 
                 "LEFT JOIN Viesti on Ketju.id = Viesti.ketju GROUP BY Ketju.id " + 
-                "ORDER BY MAX(Viesti.paivamaara) LIMIT 10 OFFSET 0");
+                "ORDER BY MAX(Ketju.id) desc LIMIT 10 OFFSET 0");
         
         //Tämä versio hausta ei näytä ketjuja, joissa ei ole yhtään viestejä
         //PreparedStatement stmt = connection.prepareStatement("SELECT Ketju.*, COUNT(Viesti.id) lkm, " + 
